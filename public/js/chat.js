@@ -19,7 +19,16 @@ function scrollToButtom() {
 }
 
 socket.on('connect', function () {
-    console.log('Conected to web');
+    var params = $.deparam(window.location.search);
+
+    socket.emit('join', params, function (errors) {
+        if (errors) {
+            alert(errors);
+            window.location.href = '/';
+        } else {
+             console.log('no errors');
+        }
+    });
 });
 
 socket.on('disconnect', function () {
